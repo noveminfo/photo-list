@@ -7,7 +7,6 @@ interface Props {
 export default function PhotoList({ files }: Props): ReactElement {
   // console.log(files);
   const [fileName, setFileName] = useState('');
-  const [imgUrl, setImgUrl] = useState('');
 
   // console.log(files);
   useEffect(() => {
@@ -19,11 +18,7 @@ export default function PhotoList({ files }: Props): ReactElement {
   // console.log(fileName);
 
   const handleClick = (name: string) => {
-    const selectFile = files.find(file => file.name === fileName);
-    if (selectFile !== undefined) {
-      setImgUrl(URL.createObjectURL(selectFile));
-      setFileName(name);
-    }
+    setFileName(name);
   };
 
   return (
@@ -46,7 +41,13 @@ export default function PhotoList({ files }: Props): ReactElement {
           <>
             <p className="py-4 text-center text-white">{fileName}</p>
             <img
-              src={imgUrl ?? ''}
+              src={
+                files.find(file => file.name === fileName) !== undefined
+                  ? URL.createObjectURL(
+                      files.find(file => file.name === fileName),
+                    )
+                  : ''
+              }
               alt="show pic"
               className="object-contain h-5/6"
             />
