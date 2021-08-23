@@ -1,0 +1,6 @@
+node_modules
+dist
+*-darwin-*
+.DS_Store
+*.dmg
+*.dmg.zip
